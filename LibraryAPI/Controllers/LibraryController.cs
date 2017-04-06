@@ -28,7 +28,6 @@ namespace LibraryAPI.Controllers
                 var reader = sqlCommand.ExecuteReader();
                 while (reader.Read())
                 {
-                    //var course = new Course(reader);
                     var book = new LibraryCatalog
                     {
                     Id = (int)reader["Id"],
@@ -46,13 +45,14 @@ namespace LibraryAPI.Controllers
             return Ok(books);
         }
 
+
+
     }
 
+        
 
 
-
-
-
-
-}
+        
+    
+    }
 }
