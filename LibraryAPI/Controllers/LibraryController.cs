@@ -32,6 +32,7 @@ namespace LibraryAPI.Controllers
                     {
                     Id = (int)reader["Id"],
                     Title = reader["Title"].ToString(),
+                    Author = reader["Author"].ToString(),
                     YearPublished = (int)reader["YearPublished"],
                     Genre = reader["Genre"].ToString(),
                     IsCheckedOut = (bool)reader["IsCheckedOut"],
