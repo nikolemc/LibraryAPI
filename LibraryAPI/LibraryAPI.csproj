@@ -182,6 +182,7 @@
     <Compile Include="Controllers\DeleteBookController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LibraryController.cs" />
+    <Compile Include="Controllers\UpdateBookInformationController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -250,6 +251,7 @@
     <Folder Include="Views\CheckedOut\" />
     <Folder Include="Views\DeleteBook\" />
     <Folder Include="Views\Library\" />
+    <Folder Include="Views\UpdateBookInformation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

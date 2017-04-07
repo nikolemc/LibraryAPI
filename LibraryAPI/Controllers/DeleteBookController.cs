@@ -19,8 +19,7 @@ namespace LibraryAPI.Controllers
         [HttpPost]
         public IHttpActionResult DeleteBook()
         {
-            //var book = new LibraryCatalog { Title = "Once Upon A Time", Author = "Jen Wales", YearPublished = 2016, Genre = "Fiction", IsCheckedOut = false };
-
+            
             using (var connection = new SqlConnection(connectionString))
             {
 
@@ -29,9 +28,9 @@ namespace LibraryAPI.Controllers
 
                     cmd.Parameters.AddWithValue("@Id", 21); //21 is the row I'm deleting
 
-                    connection.Open();
+                   connection.Open();
                    cmd.ExecuteNonQuery();
-                    connection.Close();
+                   connection.Close();
 
                     return Ok();
 

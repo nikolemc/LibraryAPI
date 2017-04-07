@@ -35,7 +35,6 @@ namespace LibraryAPI.Controllers
                     };
                     books.Add(book);
                 }
-                // Close Connection
                 connection.Close();
                 return Ok(books);
 
