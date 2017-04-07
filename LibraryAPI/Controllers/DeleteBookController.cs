@@ -23,7 +23,7 @@ namespace LibraryAPI.Controllers
             using (var connection = new SqlConnection(connectionString))
             {
 
-                using (SqlCommand cmd = new SqlCommand(@"Delete from LibraryCatalog WHERE Id = @Id", connection))
+                using (SqlCommand cmd = new SqlCommand(@"DELETE FROM LibraryCatalog WHERE Id = @Id", connection))
                 {
 
                     cmd.Parameters.AddWithValue("@Id", 21); //21 is the row I'm deleting

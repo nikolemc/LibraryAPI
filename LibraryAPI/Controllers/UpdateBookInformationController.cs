@@ -26,7 +26,7 @@ namespace LibraryAPI.Controllers
                 using (SqlCommand cmd = new SqlCommand($"UPDATE LibraryCatalog SET Title = @Title, Author = @Author, YearPublished = @YearPublished, Genre = @Genre" +
                     " WHERE Id = @Id", connection))
                 {
-                    cmd.Parameters.AddWithValue("@Id", 23);
+                    cmd.Parameters.AddWithValue("@Id", 23); //update row 23
                     cmd.Parameters.AddWithValue("@Title", "Coding 101");
                     cmd.Parameters.AddWithValue("@Author", "Jen Wales");
                     cmd.Parameters.AddWithValue("@YearPublished", 2017);

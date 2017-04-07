@@ -6,35 +6,30 @@ using System.Web;
 
 namespace LibraryAPI.Models
 {
-    public class LibraryCatalog
+    public class UpdateCheckOutStatus
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public string Author { get; set; }
-        public int YearPublished { get; set; }
-        public string Genre { get; set; }
         public bool IsCheckedOut { get; set; }
         public DateTime? LastCheckedOutDate { get; set; }
         public DateTime? DueBackDate { get; set; }
         public string ResponseMessage { get; set; }
 
-        public LibraryCatalog()
+        public UpdateCheckOutStatus()
         {
 
         }
 
-        public LibraryCatalog(SqlDataReader reader)
+        public UpdateCheckOutStatus(SqlDataReader reader)
         {
             Id = (int)reader["Id"];
             Title = reader["Title"].ToString();
-            Author = reader["Author"].ToString();
-            YearPublished = (int)reader["YearPublished"];
-            Genre = reader["Genre"].ToString();
             IsCheckedOut = (bool)reader["IsCheckedOut"];
             LastCheckedOutDate = (DateTime)reader["LastCheckedOutDate"];
             DueBackDate = (DateTime)reader["DueBackDate"];
             ResponseMessage = reader[" ResponseMessage "].ToString();
 
         }
+
     }
 }

@@ -36,7 +36,7 @@ namespace LibraryAPI.Controllers
                 sqlCommand.Parameters.AddWithValue("@IsCheckedOut", book.IsCheckedOut);
 
                 connection.Open();
-               sqlCommand.ExecuteNonQuery();
+                sqlCommand.ExecuteNonQuery();
                 connection.Close();
 
                 return Ok();
