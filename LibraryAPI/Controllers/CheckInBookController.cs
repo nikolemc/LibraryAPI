@@ -9,20 +9,21 @@ using LibraryAPI.Models;
 
 namespace LibraryAPI.Controllers
 {
-    public class CheckOutBookController : ApiController
+    public class CheckInBookController : ApiController
     {
 
         const string connectionString =
-               @"Server=localhost\SQLEXPRESS;Database=LibraryData;Trusted_Connection=True;";
+                @"Server=localhost\SQLEXPRESS;Database=LibraryData;Trusted_Connection=True;";
 
         [HttpPost]
-        public IHttpActionResult CheckOutBook()
+        public IHttpActionResult CheckInBook()
         {
 
             using (var connection = new SqlConnection(connectionString))
             {
+
                 var books = new List<UpdateCheckOutStatus>();
-                var sqlCommand = new SqlCommand(@"SELECT Id, IsCheckedOut, DueBackDate
+                var sqlCommand = new SqlCommand(@"SELECT Id, Title, IsCheckedOut, DueBackDate, LastCheckedOutDate
                                                 FROM [dbo].[LibraryCatalog]
                                                 WHERE Id = 20;", connection);
                 connection.Open();
@@ -31,40 +32,39 @@ namespace LibraryAPI.Controllers
                 var book = new UpdateCheckOutStatus();
                 while (reader.Read())
                 {
-
                     book = new UpdateCheckOutStatus
                     {
                         Id = (int)reader["Id"],
+                        Title = reader["Title"].ToString(),
                         IsCheckedOut = (bool)reader["IsCheckedOut"],
+                        LastCheckedOutDate = reader["LastCheckedOutDate"] as DateTime?,
                         DueBackDate = reader["DueBackDate"] as DateTime?,
 
                     };
+
                 }
                 connection.Close();
-                if (book.IsCheckedOut) //so the book is not in the library
+
+                if (book.IsCheckedOut == false)
                 {
                     return Ok(new UpdateCheckOutStatus
                     {
                         DueBackDate = book.DueBackDate,
                         Id = book.Id,
-                        ResponseMessage = "Sorry this book is not available"
+                        Title = book.Title,
+                        LastCheckedOutDate = book.LastCheckedOutDate,
+                        ResponseMessage = "ERROR! This book has already been returned"
                     });
+                    
                 }
 
-                else  // book is in the library
+                else
                 {
-                    // Update the book (UPDATE) to update the dueback date and checked out status
-
                     var updateBookStatus = new List<UpdateCheckOutStatus>();
-                    var cmd = new SqlCommand($"UPDATE LibraryCatalog SET LastCheckedOutDate = @LastCheckedOutDate, DueBackDate = @DueBackDate, IsCheckedOut = @IsCheckedOut " +
-                                                    " WHERE Id= 20;", connection);
-                    book.LastCheckedOutDate = DateTime.Now;
-                    book.DueBackDate = DateTime.Now.AddDays(+10);
-                    book.IsCheckedOut = true;
+                    var cmd = new SqlCommand($"UPDATE LibraryCatalog SET IsCheckedOut = @IsCheckedOut" +
+                                                        " WHERE Id= 20;", connection);
 
-                    cmd.Parameters.AddWithValue("@LastCheckedOutDate", book.LastCheckedOutDate);
-                    cmd.Parameters.AddWithValue("@DueBackDate", book.DueBackDate);
-                    cmd.Parameters.AddWithValue("@IsCheckedOut", book.IsCheckedOut);
+                    cmd.Parameters.AddWithValue("@IsCheckedOut", false);
 
                     connection.Open();
                     cmd.ExecuteNonQuery();
@@ -73,10 +73,11 @@ namespace LibraryAPI.Controllers
                     var UpdatedBook = new UpdateCheckOutStatus
                     {
                         Id = book.Id,
-                        IsCheckedOut = book.IsCheckedOut,
+                        Title = book.Title,
+                        IsCheckedOut = false,
                         LastCheckedOutDate = book.LastCheckedOutDate,
-                        DueBackDate = book.DueBackDate,
-                        ResponseMessage = "Successfully checked out"
+                        DueBackDate = null,
+                        ResponseMessage = "You have successfully returned your book. We hope you enjoyed reading it!"
                     };
 
                     return Ok(UpdatedBook);

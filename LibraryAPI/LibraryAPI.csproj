@@ -179,6 +179,7 @@
     <Compile Include="Controllers\AddBookController.cs" />
     <Compile Include="Controllers\AvailableBooksController.cs" />
     <Compile Include="Controllers\CheckedOutController.cs" />
+    <Compile Include="Controllers\CheckInBookController.cs" />
     <Compile Include="Controllers\CheckOutBookController.cs" />
     <Compile Include="Controllers\DeleteBookController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -251,6 +252,7 @@
     <Folder Include="Views\AddBook\" />
     <Folder Include="Views\AvailableBooks\" />
     <Folder Include="Views\CheckedOut\" />
+    <Folder Include="Views\CheckInBook\" />
     <Folder Include="Views\CheckOutBook\" />
     <Folder Include="Views\DeleteBook\" />
     <Folder Include="Views\Library\" />
